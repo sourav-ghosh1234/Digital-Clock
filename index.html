@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+</head>
+<style>
+    *{
+        padding:0px;
+        margin:0px;
+
+    }
+    body{
+        height:100vh;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        background:#10101E;
+
+    }
+    .datetime{
+        color:#fff;
+        background:#10101E;
+        width: 450px;
+        padding:15px 10px;
+        border:3px solid #2E94E3;
+        border-radius: 5px;
+
+    }
+    .date{
+        font-size: 20px;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 3px;
+
+    }
+    .time{
+        font-size:60px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .time span:not(:last-child){
+        position: relative;
+        margin:0 6px;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 3px;
+    }
+    .time span:last-child{
+        background:#2E94E3;
+        font-size: 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-top:10px;
+        padding:0 5px;
+        border-radius: 3px;
+    }
+    #btn1{
+        /* height:10px;
+        width:10px; */
+        font-size: 30px;
+        border-radius: 5px;
+        padding: 5px;
+        align-items: center;
+        margin-left:130px;
+    }
+    #btn2{
+        font-size: 30px;
+        border-radius: 5px;
+        padding: 5px;
+        align-items: center;
+
+    }
+</style>
+<body >
+    <div class="datetime" >
+        <div class="date">
+            <span id="dayname">Day</span>,
+            <span id="month">Month</span>
+            <span id="daynum">00</span>,
+            <span id="year">Year</span>
+        </div>
+        <div class="time">
+            <span id="hour">00</span>:
+            <span id="minutes">00</span>:
+            <span id="seconds">00</span>
+            <span id="period">AM</span>
+        </div>
+        <button id="btn1" onClick="initClock()">Start</button>
+        <button id="btn2" onClick="stopClock()">Stop</button>
+        
+    </div>
+    <script>
+        
+        function updateClock(){
+          var now=new Date();
+          var dname=now.getDay(),mo=now.getMonth(),dnum=now.getDate(),yr=now.getFullYear(),hou=now.getHours(),min=now.getMinutes(),sec=now.getSeconds(),pe="AM";
+          if(hou==0){
+              hou=12;
+          }
+          if(hou > 12){
+              hou=hou-12;
+              pe="pm"
+              
+          }
+          
+          var months=["January","February","March","April","May","June","July","August","September","October","November","December"]
+          var week=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+          var ids=["dayname","month","daynum","year","hour","minutes","seconds","period"]
+          var values=[week[dname],months[mo],dnum,yr,hou,min,sec,pe]
+          for(var i=0;i < ids.length; i++){
+              document.getElementById(ids[i]).firstChild.nodeValue=values[i]
+
+
+          }
+
+
+        }
+        var myvar;
+        // myvar=setInterval("updateClock()",1000);
+        function stopClock(){
+            clearInterval(myvar)
+            
+        }
+        function startClock(){
+            initClock()
+        }
+        function initClock(){
+            updateClock()
+           myvar = setInterval("updateClock()",1000);
+        }
+    </script>
+
+</body>
+</html>
